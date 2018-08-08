@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1>Test workmarket</h1>
+
+		<!-- Sign in form -->
+		<h2>Sign In</h2>
+			 sign in as 
+	
+		    <input type="text" id="name" required="required" placeholder="Username" value={{session['username']}}>
+			<button onClick=sign_in()>Log In</Button>
+
+<script>
+	function sign_in( ){
+		var j= {'username':' '};
+		j.username = $('#name').val();
+		$.ajax({
+			url: '/in',
+			type: 'POST',
+			dataType: 'json',
+			data: JSON.stringify(j),
+			contentType: "application/json",
+			success: function(response){
+		
+				if(response.status === "OK"){
+				
+					window.location.href = '/sync'
+				}
+				else{
+					alert(response.status)
+				}
+			}
+		})
+	}
+</script>
+</body>
+</html>
